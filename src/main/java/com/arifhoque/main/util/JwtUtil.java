@@ -3,10 +3,12 @@ package com.arifhoque.main.util;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-public class jwtUtil {
+@Component
+public class JwtUtil {
 
     private static final long JWT_EXP = 300000;
     private static final String SECRET_KEY = "12345";
@@ -42,7 +44,7 @@ public class jwtUtil {
         return claims.getSubject();
     }
 
-    public List extractAuthorities(String token) {
+    public List<String> extractAuthorities(String token) {
         Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token).getBody();
         return claims.get("Authorities",List.class);
     }
