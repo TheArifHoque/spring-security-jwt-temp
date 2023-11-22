@@ -41,10 +41,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         .map(SimpleGrantedAuthority::new)
                         .toList();
 
-                UserDetails userDetails = new User(username, null, grantedAuthorities);
+                UserDetails userDetails = new User(username, "", grantedAuthorities);
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, grantedAuthorities);
+                        new UsernamePasswordAuthenticationToken(userDetails, grantedAuthorities);
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
