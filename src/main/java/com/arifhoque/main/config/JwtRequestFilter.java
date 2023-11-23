@@ -21,6 +21,9 @@ import java.util.List;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+    private static final String AUTHORIZATION = "Authorization ";
+    private static final String BEARER_PREFIX = "Bearer ";
+
     private final JwtUtil jwtUtil;
 
     public JwtRequestFilter(JwtUtil jwtUtil) {
@@ -35,16 +38,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             if (jwt != null && jwtUtil.validateJwtToken(jwt)) {
                 String username = jwtUtil.extractUsername(jwt);
+
                 List<SimpleGrantedAuthority> grantedAuthorities = jwtUtil
                         .extractAuthorities(jwt)
                         .stream()
                         .map(SimpleGrantedAuthority::new)
                         .toList();
 
-                UserDetails userDetails = new User(username, "", grantedAuthorities);
+                UserDetails userDetails = new User(username, null, grantedAuthorities);
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, grantedAuthorities);
+                        new UsernamePasswordAuthenticationToken(userDetails,grantedAuthorities);
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
@@ -56,8 +60,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private String parseJwt(HttpServletRequest request) {
-        String headerAuth = request.getHeader("Authorization");
-        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer "))
+        String headerAuth = request.getHeader(AUTHORIZATION);
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith(BEARER_PREFIX))
             return headerAuth.substring(7);
 
         return null;
