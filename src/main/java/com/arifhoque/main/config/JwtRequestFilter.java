@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
-    private static final String AUTHORIZATION = "Authorization ";
+    private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER_PREFIX = "Bearer ";
 
     private final JwtUtil jwtUtil;
@@ -45,10 +45,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         .map(SimpleGrantedAuthority::new)
                         .toList();
 
-                UserDetails userDetails = new User(username, null, grantedAuthorities);
+                UserDetails userDetails = new User(username, "", grantedAuthorities);
 
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                        new UsernamePasswordAuthenticationToken(userDetails,grantedAuthorities);
+                        new UsernamePasswordAuthenticationToken(userDetails, "", grantedAuthorities);
                 usernamePasswordAuthenticationToken
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);

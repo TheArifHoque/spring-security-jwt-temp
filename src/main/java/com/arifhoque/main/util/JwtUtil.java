@@ -10,7 +10,7 @@ import java.util.*;
 @Component
 public class JwtUtil {
 
-    private static final long JWT_EXP = 300000 / 5;
+    private static final long JWT_EXP = 300000;
     private static final String SECRET_KEY = "12345";
 
     public String generateToken(UserDetails userDetails) {
@@ -29,7 +29,7 @@ public class JwtUtil {
 
     public boolean validateJwtToken(String token) {
         try {
-            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token);
+            Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
             return true;
         } catch (SignatureException | MalformedJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
             System.out.println("-------------Invalid Token");
@@ -40,12 +40,12 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token).getBody();
+        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
         return claims.getSubject();
     }
 
     public List<String> extractAuthorities(String token) {
-        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token).getBody();
+        Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
         return claims.get("Authorities",List.class);
     }
 }
