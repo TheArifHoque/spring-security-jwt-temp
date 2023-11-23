@@ -5,13 +5,13 @@ INSERT INTO authority_table
 VALUES(2, 'ROLE_USER');
 
 INSERT INTO user_table (user_id, first_name, last_name, username, password)
-VALUES(101L, 'Arif', 'Hoque', 'ArifHoque', 'iamadmin');
--- VALUES(101L, 'Arif', 'Hoque', 'ArifHoque', '$2a$10$TUPqUidYreC1GmXpE6uNFevYLnNatn648J9Ijl4E7qp.NOevTKhYq');
+-- VALUES(101L, 'Arif', 'Hoque', 'ArifHoque', 'iamadmin');
+VALUES(101L, 'Arif', 'Hoque', 'ArifHoque', '$2a$10$TUPqUidYreC1GmXpE6uNFevYLnNatn648J9Ijl4E7qp.NOevTKhYq');
 -- password: iamadmin
 
 INSERT INTO user_table (user_id, first_name, last_name, username, password)
-VALUES(102L, 'Sad', 'Man', 'sadman', 'iamuser');
--- VALUES(102L, 'Sad', 'Man', 'sadman', '$2a$10$lutvveNDlDKfLY9EAmunf.XJjIptyomoYooPy5PeKhvttj04BZ3qu');
+-- VALUES(102L, 'Sad', 'Man', 'sadman', 'iamuser');
+VALUES(102L, 'Sad', 'Man', 'sadman', '$2a$10$lutvveNDlDKfLY9EAmunf.XJjIptyomoYooPy5PeKhvttj04BZ3qu');
 -- password: iamuser
 
 INSERT INTO user_authority (user_id, authority_id)

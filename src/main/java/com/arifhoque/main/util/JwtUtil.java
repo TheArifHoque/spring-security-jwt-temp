@@ -10,7 +10,7 @@ import java.util.*;
 @Component
 public class JwtUtil {
 
-    private static final long JWT_EXP = 300000;
+    private static final long JWT_EXP = 300000 / 5;
     private static final String SECRET_KEY = "12345";
 
     public String generateToken(UserDetails userDetails) {
