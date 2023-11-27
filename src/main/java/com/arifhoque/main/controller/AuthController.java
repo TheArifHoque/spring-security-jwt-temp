@@ -29,8 +29,8 @@ public class AuthController {
         this.jwtUtil = jwtUtil;
     }
 
-    @PostMapping("/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) {
+    @PostMapping("/login")
+    public ResponseEntity<?> loginPage(@RequestBody User user) {
         Authentication authentication;
 
         try {
@@ -50,18 +50,6 @@ public class AuthController {
                 .build();
 
         return new ResponseEntity<>(jwtResponse,HttpStatus.OK);
-    }
-
-    @PostMapping("/login")
-    public String loginPage(@RequestBody User user) {
-        Authentication authentication;
-        try {
-            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
-        } catch (Exception ex) {
-            return ex.toString();
-        }
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return jwtUtil.generateToken(userDetails);
     }
 
     @PostMapping("/user/register")
